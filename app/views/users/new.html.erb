@@ -1,0 +1,10 @@
+<%# making the form manually %>
+<form action="<%= users_path %>" method="post" accept-charset="UTF-8">
+  <label for="username">Username:</label>
+  <input type="text" name="user[username]" id="user_username">
+  <label for="email">Email:</label>
+  <input type="text" name="user[email]" id="user_email">
+  <label for="password">Password:</label>
+  <input type="password" name="user[password]" id="user_password">
+  <input type="submit" value="Create User">
+</form>
