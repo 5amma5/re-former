@@ -1,4 +1,4 @@
-<!-- making the form manually 
+<!-- v1 of the form. Making the form using just html. 
 <form action="<%= users_path %>" method="post" accept-charset="UTF-8">
   <label for="username">Username:</label>
   <input type="text" name="user[username]" id="user_username">
@@ -9,7 +9,8 @@
   <input type="submit" value="Create User">
 </form> -->
 
-<%= form_tag(users_path, method: "post") do %>
+<!-- v2 of the form. Using form_tag helper
+  <%= form_tag(users_path, method: "post") do %>
   <%= label_tag(:username, "Username:") %>
   <%= text_field_tag(:username) %>
   <%= label_tag(:email, "Email:") %>
@@ -17,7 +18,17 @@
   <%= label_tag(:password, "Password:") %>
   <%= password_field_tag(:password) %>
   <%= submit_tag("Create User") %>
-<% end %>
+<% end %> -->
 
-  <%#=  %>
-  <%#=  %>  
+<%# v3 of the form. Using the form_with helper %>
+
+
+<%= form_with model: @user do |form| %>
+  <%= form.label :username, "Username:" %>
+  <%= form.text_field :username, value: :poop %>
+  <%= form.label :email, "Email:"  %>
+  <%= form.text_field :email, placeholder: "example@example.com" %>
+  <%= form.label :password, "Password:"  %>
+  <%= form.password_field :password %>
+  <%= form.submit "Create User" %>
+<% end %>
