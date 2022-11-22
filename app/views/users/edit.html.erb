@@ -1,5 +1,5 @@
 <!-- v1 of the form. Making the form using just html. 
-<form action="<%= user_path %>" method="post" accept-charset="UTF-8">
+<form action="<%= edit_user_path %>" method="put" accept-charset="UTF-8">
   <label for="username">Username:</label>
   <input type="text" name="user[username]" id="user_username">
   <label for="email">Email:</label>
@@ -10,7 +10,7 @@
 </form> -->
 
 <!-- v2 of the form. Using form_tag helper
-<%= form_tag(user_path, method: "post") do %>
+<%= form_tag(edit_user_path, method: "put") do %>
   <%= label_tag(:username, "Username:") %>
   <%= text_field_tag(:username) %>
   <%= label_tag(:email, "Email:") %>
@@ -22,11 +22,22 @@
 
 <%# v3 of the form. Using the form_with helper %>
 <%= form_with model: @user do |form| %>
+  <% if @user.errors.any? %>
+    <div style="color: red">
+      <h2> <%= pluralize(@user.errors.count, "error") %> prohibited this user from updating:</h2>
+      <ul>
+        <% @user.errors.each do |error| %>
+          <li> <%= error.full_message %> </li>
+        <% end %>
+      </ul>
+    </div>  
+  <% end %>
+
   <%= form.label :username, "Username:" %>
-  <%= form.text_field :username, value: :poop %>
+  <%= form.text_field :username %>
   <%= form.label :email, "Email:"  %>
-  <%= form.text_field :email, placeholder: "example@example.com" %>
+  <%= form.text_field :email %>
   <%= form.label :password, "Password:"  %>
   <%= form.password_field :password %>
-  <%= form.submit "Create User" %>
+  <%= form.submit "Update" %>
 <% end %>
